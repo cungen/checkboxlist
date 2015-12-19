@@ -15,17 +15,31 @@ const ListCategory = React.createClass({
 
     render() {
         // U+2303  ︿ 〉 UP ARROWHEAD
+        const {
+            name,
+            total,
+            checked,
+            onCateCheck
+        } = this.props;
+
         const styles = {
             root: {
+                position: 'relative',
                 color: 'white',
                 height: '40px',
                 lineHeight: '40px',
-                fontWeight: 'bold'
+                paddingRight: '60px',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden'
             },
             toggle: {
                 marginLeft: '15px'
             },
             badge: {
+                position: 'absolute',
+                right: '0',
                 display: 'inline-block',
                 float: 'right',
                 padding: '0 12px',
@@ -36,17 +50,27 @@ const ListCategory = React.createClass({
                 backgroundColor: '#596a76'
             }
         };
+
         return (
             <div style={styles.root}>
                 <label>
-                    <input type="checkbox" style={styles.checkbox}/>
+                    <input
+                        type="checkbox"
+                        style={styles.checkbox}
+                        checked={checked}
+                        onChange={this._handleChange}
+                        ref="isCateCheck" />
                     <span className="symbol"></span>
-                    <span>工程研发部门</span>
+                    <span>{name}</span>
                     <span style={styles.toggle}>﹀</span>
                 </label>
-                <span style={styles.badge}>120</span>
+                <span style={styles.badge}>{total}</span>
             </div>
         )
+    },
+
+    _handleChange() {
+        this.props.onCateCheck(this.refs.isCateCheck.checked);
     }
 });
 

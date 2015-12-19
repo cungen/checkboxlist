@@ -14,16 +14,30 @@ const ListItem = React.createClass({
     },
 
     render() {
+        const {
+            name,
+            number,
+            checked,
+            order,
+            onToggleCheck
+        } = this.props;
+
         const styles = {
             root: {
+                position: 'relative',
                 color: '#d8ddda',
                 height: '40px',
                 lineHeight: '40px',
-                paddingLeft: '45px'
+                paddingLeft: '45px',
+                paddingRight: '60px',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                overflow: 'hidden'
             },
             badge: {
+                position: 'absolute',
+                right: '0',
                 display: 'inline-block',
-                float: 'right',
                 padding: '0 12px',
                 color: '#b2bdc4'
             }
@@ -31,13 +45,22 @@ const ListItem = React.createClass({
         return (
             <div style={styles.root}>
                 <label>
-                    <input type="checkbox"/>
+                    <input
+                        type="checkbox"
+                        ref="isItemCheck"
+                        checked={checked}
+                        onChange={this._handleChange} />
+
                     <span className="symbol"></span>
-                    <span>Mac开发工程师</span>
+                    <span>{name}</span>
                 </label>
-                <span style={styles.badge}>20</span>
+                <span style={styles.badge}>{number}</span>
             </div>
-        )
+        );
+    },
+
+    _handleChange() {
+        this.props.onToggleCheck(this.props.order, this.refs.isItemCheck.checked);
     }
 });
 
