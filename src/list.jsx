@@ -5,23 +5,28 @@ import ListItem from './list-item';
 const List = React.createClass({
     getDefaultProps() {
         return {
-
+            list: [{
+                key: 1
+            }, {
+                key: 2
+            }, {
+                key: 3
+            }]
         };
     },
 
     getInitialState() {
         return {
-            list: []
-        }
+        };
     },
 
     render() {
         return (
-            <div>
+            <div className="checkbox-list">
                 <ListCategory></ListCategory>
                 {
-                    list.map((node, i) => {
-                        <ListItem></ListItem>
+                    this.props.list.map((node, i) => {
+                        return (<ListItem key={i}></ListItem>);
                     })
                 }
             </div>
